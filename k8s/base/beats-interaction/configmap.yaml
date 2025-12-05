@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: beats-interaction-config
+data:
+  NODE_ENV: "production"
+  PORT: "3002"
+  LOG_LEVEL: "info"
+  API_TITLE: "beats-interaction microservice API"
+  API_DESCRIPTION: "This is an OAS description of this beats-interaction microservice REST API"
+  MONGOURL: "mongodb://mongo-beats-interaction:27017/beats-interaction"

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beats-interaction
+  labels:
+    app: beats-interaction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beats-interaction
+  template:
+    metadata:
+      labels:
+        app: beats-interaction
+    spec:
+      containers:
+        - name: beats-interaction
+          image: socialbeats/beats-interaction:latest
+          ports:
+            - containerPort: 3002
+          envFrom:
+            - configMapRef:
+                name: beats-interaction-config
+            - secretRef:
+                name: beats-interaction-secret
+          imagePullPolicy: Always
