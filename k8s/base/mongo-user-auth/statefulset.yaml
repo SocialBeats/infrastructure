@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-user-auth
+  labels:
+    app: mongo-user-auth
+spec:
+  serviceName: "mongo-user-auth"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-user-auth
+  template:
+    metadata:
+      labels:
+        app: mongo-user-auth
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:latest
+        ports:
+          - containerPort: 27017
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongo-user-auth-secret
+                key: MONGO_INITDB_ROOT_USERNAME
+
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongo-user-auth-secret
+                key: MONGO_INITDB_ROOT_PASSWORD
+        volumeMounts:
+          - name: mongo-data
+            mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 2Gi

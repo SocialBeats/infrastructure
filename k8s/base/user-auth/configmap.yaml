@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-auth-config
+data:
+  NODE_ENV: "production"
+  PORT: "3001"
+  LOG_LEVEL: "info"
+  API_TITLE: "User authentication API"
+  API_DESCRIPTION: "This is an OAS description of User Authentication Microservice REST API"
+
+  MONGOURL: "mongodb://mongo-user-auth:27017/user-auth"
+  MONGOTESTURL: "mongodb://mongo-user-auth:27017/user-auth-test"
+
+  REDIS_HOST: "redis-user-auth"
+  REDIS_PORT: "6379"

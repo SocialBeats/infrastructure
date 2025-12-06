@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-user-auth
+  labels:
+    app: redis-user-auth
+spec:
+  serviceName: "redis-user-auth"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-user-auth
+  template:
+    metadata:
+      labels:
+        app: redis-user-auth
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+          - containerPort: 6379
+
+        env:
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: redis-user-auth-secret
+                key: REDIS_PASSWORD
+        # To enable redis auth, descomment the following line
+        # args: ["--requirepass", "$(REDIS_PASSWORD)"]
+        volumeMounts:
+          - name: redis-data
+            mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
