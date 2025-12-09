@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: analytics-config
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  TEMP_AUDIO_DIR: "/tmp/audio"
+  MAX_UPLOAD_SIZE: "104857600"
+  MONGODB_DB_NAME: "fastapi_template"
+  MONGODB_URL: "mongodb://mongo-analytics-0.mongo-analytics:27017"
+  REDIS_URL: "redis://redis-analytics:6379"
+  BEATS_SERVICE_URL: "http://beats-upload:3005"

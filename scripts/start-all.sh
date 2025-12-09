@@ -10,12 +10,23 @@ kubectl apply -f k8s/base/mongo-user-auth/secret.yaml
 kubectl apply -f k8s/base/mongo-user-auth/service.yaml
 kubectl apply -f k8s/base/mongo-user-auth/statefulset.yaml
 
+# Analytics and dashboards
+kubectl apply -f k8s/base/mongo-analytics-and-dashboards/secret.yaml
+kubectl apply -f k8s/base/mongo-analytics-and-dashboards/service.yaml
+kubectl apply -f k8s/base/mongo-analytics-and-dashboards/statefulset.yaml
+
 # ======= REDIS DATABASES =======
 
 # User auth
 kubectl apply -f k8s/base/redis-user-auth/secret.yaml
 kubectl apply -f k8s/base/redis-user-auth/service.yaml
 kubectl apply -f k8s/base/redis-user-auth/statefulset.yaml
+
+# Analytics and dashboards
+kubectl apply -f k8s/base/redis-analytics-and-dashboards/secret.yaml
+kubectl apply -f k8s/base/redis-analytics-and-dashboards/service.yaml
+kubectl apply -f k8s/base/redis-analytics-and-dashboards/statefulset.yaml
+
 
 # ======= MICROSERVICES =======
 
@@ -30,6 +41,13 @@ kubectl apply -f k8s/base/beats-interaction/secret.yaml
 kubectl apply -f k8s/base/beats-interaction/configmap.yaml
 kubectl apply -f k8s/base/beats-interaction/service.yaml
 kubectl apply -f k8s/base/beats-interaction/deployment.yaml
+
+# Analytics and dashboards
+kubectl apply -f k8s/base/analytics-and-dashboards/secret.yaml
+kubectl apply -f k8s/base/analytics-and-dashboards/configmap.yaml
+kubectl apply -f k8s/base/analytics-and-dashboards/service.yaml
+kubectl apply -f k8s/base/analytics-and-dashboards/deployment.yaml
+
 
 # ======= FRONTEND =======
 

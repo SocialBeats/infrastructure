@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-analytics
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-analytics
+  ports:
+    - port: 27017
+      targetPort: 27017
