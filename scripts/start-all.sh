@@ -22,6 +22,11 @@ kubectl apply -f k8s/base/mongo-analytics-and-dashboards/statefulset.yaml
 
 # ======= REDIS DATABASES =======
 
+# API Gateway
+kubectl apply -f k8s/base/redis-api-gateway/secret.yaml
+kubectl apply -f k8s/base/redis-api-gateway/service.yaml
+kubectl apply -f k8s/base/redis-api-gateway/statefulset.yaml
+
 # User auth
 kubectl apply -f k8s/base/redis-user-auth/secret.yaml
 kubectl apply -f k8s/base/redis-user-auth/service.yaml
@@ -34,6 +39,12 @@ kubectl apply -f k8s/base/redis-analytics-and-dashboards/statefulset.yaml
 
 
 # ======= MICROSERVICES =======
+
+# API Gateway
+kubectl apply -f k8s/base/api-gateway/secret.yaml
+kubectl apply -f k8s/base/api-gateway/configmap.yaml
+kubectl apply -f k8s/base/api-gateway/service.yaml
+kubectl apply -f k8s/base/api-gateway/deployment.yaml
 
 # User auth
 kubectl apply -f k8s/base/user-auth/secret.yaml

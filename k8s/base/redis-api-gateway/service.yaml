@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-api-gateway
+spec:
+  selector:
+    app: redis-api-gateway
+  ports:
+    - port: 6379
+      targetPort: 6379
