@@ -1,3 +1,13 @@
+# ======= KAFKA STUFF =======
+
+# Zookeeper
+kubectl apply -f k8s/base/zookeeper/service.yaml
+kubectl apply -f k8s/base/zookeeper/deployment.yaml
+
+# Kafka
+kubectl apply -f k8s/base/kafka/service.yaml
+kubectl apply -f k8s/base/kafka/statefulset.yaml
+
 # ======= MONGO DATABASES =======
 
 # Beats-upload
