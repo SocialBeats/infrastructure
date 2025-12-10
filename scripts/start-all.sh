@@ -1,5 +1,10 @@
 # ======= MONGO DATABASES =======
 
+# Beats-upload
+kubectl apply -f k8s/base/mongo-beats-upload/secret.yaml
+kubectl apply -f k8s/base/mongo-beats-upload/service.yaml
+kubectl apply -f k8s/base/mongo-beats-upload/statefulset.yaml
+
 # Beats-interaction
 kubectl apply -f k8s/base/mongo-beats-interaction/secret.yaml
 kubectl apply -f k8s/base/mongo-beats-interaction/service.yaml
@@ -35,6 +40,12 @@ kubectl apply -f k8s/base/user-auth/secret.yaml
 kubectl apply -f k8s/base/user-auth/configmap.yaml
 kubectl apply -f k8s/base/user-auth/service.yaml
 kubectl apply -f k8s/base/user-auth/deployment.yaml
+
+# Beats upload
+kubectl apply -f k8s/base/beats-upload/secret.yaml
+kubectl apply -f k8s/base/beats-upload/configmap.yaml
+kubectl apply -f k8s/base/beats-upload/service.yaml
+kubectl apply -f k8s/base/beats-upload/deployment.yaml
 
 # Beats interaction
 kubectl apply -f k8s/base/beats-interaction/secret.yaml

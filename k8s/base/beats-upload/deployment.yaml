@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beats-upload
+  labels:
+    app: beats-upload
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beats-upload
+  template:
+    metadata:
+      labels:
+        app: beats-upload
+    spec:
+      containers:
+        - name: beats-upload
+          image: socialbeats/beats-upload:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3005
+          envFrom:
+            - configMapRef:
+                name: beats-upload-config
+            - secretRef:
+                name: beats-upload-secret
