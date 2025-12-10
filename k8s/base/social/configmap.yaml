@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: social-config
+data:
+  NODE_ENV: "production"
+  PORT: "3004"
+  LOG_LEVEL: "info"
+  API_TITLE: "Social microservice API"
+  API_DESCRIPTION: "This is an OAS description of this social microservice REST API"
+  MONGOURL: "mongodb://mongo-social:27017/microservice-social"

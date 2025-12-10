@@ -20,6 +20,11 @@ kubectl apply -f k8s/base/mongo-analytics-and-dashboards/secret.yaml
 kubectl apply -f k8s/base/mongo-analytics-and-dashboards/service.yaml
 kubectl apply -f k8s/base/mongo-analytics-and-dashboards/statefulset.yaml
 
+# Social
+kubectl apply -f k8s/base/mongo-social/secret.yaml
+kubectl apply -f k8s/base/mongo-social/service.yaml
+kubectl apply -f k8s/base/mongo-social/statefulset.yaml
+
 # ======= REDIS DATABASES =======
 
 # API Gateway
@@ -70,6 +75,11 @@ kubectl apply -f k8s/base/analytics-and-dashboards/configmap.yaml
 kubectl apply -f k8s/base/analytics-and-dashboards/service.yaml
 kubectl apply -f k8s/base/analytics-and-dashboards/deployment.yaml
 
+# Social
+kubectl apply -f k8s/base/social/secret.yaml
+kubectl apply -f k8s/base/social/configmap.yaml
+kubectl apply -f k8s/base/social/service.yaml
+kubectl apply -f k8s/base/social/deployment.yaml
 
 # ======= FRONTEND =======
 
