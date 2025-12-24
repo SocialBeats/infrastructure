@@ -71,9 +71,15 @@ services:
       - DO_SPACES_ENDPOINT=https://fra1.digitaloceanspaces.com
       - DO_SPACES_REGION=fra1
       - DO_SPACES_CDN_ENDPOINT=https://user-s3-fis.fra1.cdn.digitaloceanspaces.com
+      - ENABLE_KAFKA=true
+      - KAFKA_BROKER=kafka:9092
+      - KAFKA_CONNECTION_MAX_RETRIES=10
+      - KAFKA_CONNECTION_RETRY_DELAY=3000
+      - KAFKA_COOLDOWN=30000
     depends_on:
       - user-auth-mongodb
       - user-auth-redis
+      - kafka
     networks:
       - socialbeats-network
     ports:
@@ -199,6 +205,93 @@ services:
       - socialbeats-network
     ports:
       - "3004:3004"
+
+  # ======= SPACE STUFF =======
+
+  mongodb:
+      image: mongo:7.0.16
+      container_name: space-mongodb
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: 4dm1n
+        MONGO_INITDB_DATABASE: space_db
+        DATABASE_NAME: space_db
+        DATABASE_USERNAME: mongoUser
+        DATABASE_PASSWORD: mongoPassword
+      volumes:
+        - 'space-mongodb:/data/db'
+        - './scripts/init-space-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh'
+      networks:
+        - socialbeats-network
+  redis:
+    image: redis:7.4.2
+    container_name: space-redis
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: always
+    volumes:
+      - 'space-redis-data:/data'
+    networks:
+      - socialbeats-network
+  space-server:
+    restart: always
+    container_name: space-server
+    image: socialbeats/space-server:1.0.1
+    # build:
+    # context: ./api/
+    # dockerfile: ./docker/production/Dockerfile
+    environment:
+      ENVIRONMENT: production
+      MONGO_URI: mongodb://mongoUser:mongoPassword@mongodb:27017/space_db
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: secret
+      JWT_SALT: wgv~eb6v=VWwC9GIG1q6rZ]J.tUM(M
+      JWT_EXPIRATION: 1d
+    volumes:
+      - 'space-statics:/usr/src/server/public'
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - socialbeats-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/v1/healthcheck"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+  space-client:
+    container_name: space-client
+    image: socialbeats/space-client:1.0.1
+    # build:
+    #   context: ./frontend/
+    #   dockerfile: ./docker/Dockerfile
+    #   args:
+    #     VITE_ENVIRONMENT: production
+    #     VITE_SPACE_BASE_URL: http://localhost:5403/api/v1
+    depends_on:
+      - space-server
+    networks:
+      - socialbeats-network
+  nginx:
+    restart: always
+    container_name: space-nginx
+    image: socialbeats/space-nginx:1.0.0
+    # build:
+    #     context: ./nginx
+    #     dockerfile: ./Dockerfile
+    ports:
+      - 5403:5403
+    depends_on:
+      - space-server
+      - space-client
+    networks:
+      - socialbeats-network
+
 
   # ======= KAFKA STUFF =======
   zookeeper:
@@ -383,3 +476,9 @@ volumes:
   analytics-mongodb-data:
   analytics-mongodb-config:
   social-mongo-data:
+  space-mongodb:
+    driver: local
+  space-statics:
+    driver: local
+  space-redis-data:
+    driver: local
