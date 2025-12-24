@@ -20,6 +20,7 @@ services:
       - BEATS_SERVICE_URL=http://beats-service:3005
       - PAYMENTS_SERVICE_URL=http://payments-service:3006
       - NOTIFICATIONS_SERVICE_URL=http://notifications-service:3007
+      - SPACE_SERVICE_URL=http://space-server:3000
       - FREE_PLAN_MAX_REQUESTS_PER_MINUTE=1000
       - BASIC_PLAN_MAX_REQUESTS_PER_MINUTE=5000
       - PREMIUM_PLAN_MAX_REQUESTS_PER_MINUTE=20000
@@ -207,23 +208,26 @@ services:
       - "3004:3004"
 
   # ======= SPACE STUFF =======
+  space-mongodb:
+    image: mongo:7.0.16
+    container_name: space-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 4dm1n
+      MONGO_INITDB_DATABASE: space_db
+      DATABASE_NAME: space_db
+      DATABASE_USERNAME: mongoUser
+      DATABASE_PASSWORD: mongoPassword
+    volumes:
+      - 'space-mongodb:/data/db'
+      - './scripts/init-space-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh'
+    ports:
+      - "27022:27017"
+    networks:
+      - socialbeats-network
+    restart: unless-stopped
 
-  mongodb:
-      image: mongo:7.0.16
-      container_name: space-mongodb
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: 4dm1n
-        MONGO_INITDB_DATABASE: space_db
-        DATABASE_NAME: space_db
-        DATABASE_USERNAME: mongoUser
-        DATABASE_PASSWORD: mongoPassword
-      volumes:
-        - 'space-mongodb:/data/db'
-        - './scripts/init-space-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh'
-      networks:
-        - socialbeats-network
-  redis:
+  space-redis:
     image: redis:7.4.2
     container_name: space-redis
     healthcheck:
@@ -235,27 +239,27 @@ services:
     restart: always
     volumes:
       - 'space-redis-data:/data'
+    ports:
+      - "6383:6379"
     networks:
       - socialbeats-network
+
   space-server:
     restart: always
     container_name: space-server
     image: socialbeats/space-server:1.0.1
-    # build:
-    # context: ./api/
-    # dockerfile: ./docker/production/Dockerfile
     environment:
       ENVIRONMENT: production
-      MONGO_URI: mongodb://mongoUser:mongoPassword@mongodb:27017/space_db
-      REDIS_URL: redis://redis:6379
+      MONGO_URI: mongodb://mongoUser:mongoPassword@space-mongodb:27017/space_db
+      REDIS_URL: redis://space-redis:6379
       JWT_SECRET: secret
       JWT_SALT: wgv~eb6v=VWwC9GIG1q6rZ]J.tUM(M
       JWT_EXPIRATION: 1d
     volumes:
       - 'space-statics:/usr/src/server/public'
     depends_on:
-      - mongodb
-      - redis
+      - space-mongodb
+      - space-redis
     networks:
       - socialbeats-network
     healthcheck:
@@ -267,23 +271,16 @@ services:
   space-client:
     container_name: space-client
     image: socialbeats/space-client:1.0.1
-    # build:
-    #   context: ./frontend/
-    #   dockerfile: ./docker/Dockerfile
-    #   args:
-    #     VITE_ENVIRONMENT: production
-    #     VITE_SPACE_BASE_URL: http://localhost:5403/api/v1
     depends_on:
       - space-server
     networks:
       - socialbeats-network
-  nginx:
+    restart: unless-stopped
+
+  space-nginx:
     restart: always
     container_name: space-nginx
     image: socialbeats/space-nginx:1.0.0
-    # build:
-    #     context: ./nginx
-    #     dockerfile: ./Dockerfile
     ports:
       - 5403:5403
     depends_on:
@@ -291,7 +288,6 @@ services:
       - space-client
     networks:
       - socialbeats-network
-
 
   # ======= KAFKA STUFF =======
   zookeeper:
@@ -477,8 +473,5 @@ volumes:
   analytics-mongodb-config:
   social-mongo-data:
   space-mongodb:
-    driver: local
   space-statics:
-    driver: local
   space-redis-data:
-    driver: local
