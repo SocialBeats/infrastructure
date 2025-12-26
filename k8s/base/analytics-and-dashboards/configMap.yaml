@@ -5,7 +5,7 @@ metadata:
 data:
   ENVIRONMENT: "production"
   LOG_LEVEL: "INFO"
-  TEMP_AUDIO_DIR: "temp_audio"
+  TEMP_AUDIO_DIR: "/tmp/audio"
   MAX_UPLOAD_SIZE: "104857600"
   MONGODB_DB_NAME: "analytics_db"
   MONGODB_URL: "mongodb://mongo-analytics-0.mongo-analytics:27017"
@@ -19,12 +19,12 @@ data:
   PORT: "3003"
   MONGODB_MAX_CONNECTIONS: "10"
   MONGODB_MIN_CONNECTIONS: "1"
-  CORS_ORIGINS: "http://api-gateway:3000,http://analytics-and-dashboards:3003"
+  CORS_ORIGINS: '["http://api-gateway:3000","http://analytics-and-dashboards:3003"]'
   CORS_ALLOW_CREDENTIALS: "true"
-  CORS_ALLOW_METHODS: "*"
-  CORS_ALLOW_HEADERS: "*"
+  CORS_ALLOW_METHODS: '["*"]'
+  CORS_ALLOW_HEADERS: '["*"]'
   LOG_FORMAT: "json"
-  KAFKA_BROKER: kafka:9092
+  KAFKA_BROKER: "kafka:9092"
   ENABLE_KAFKA: "true"
   KAFKA_CONNECTION_MAX_RETRIES: "10"
   KAFKA_CONNECTION_RETRY_DELAY: "3000"
