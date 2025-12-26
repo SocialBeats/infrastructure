@@ -1,5 +1,8 @@
 # ======= KAFKA STUFF =======
 
+# Ingress setup
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
 # Zookeeper
 kubectl apply -f k8s/base/zookeeper/service.yaml
 kubectl apply -f k8s/base/zookeeper/deployment.yaml
@@ -7,6 +10,20 @@ kubectl apply -f k8s/base/zookeeper/deployment.yaml
 # Kafka
 kubectl apply -f k8s/base/kafka/service.yaml
 kubectl apply -f k8s/base/kafka/statefulset.yaml
+
+# Space
+kubectl apply -f k8s/base/space-mongodb/secret.yaml
+kubectl apply -f k8s/base/space-mongodb/service.yaml
+kubectl apply -f k8s/base/space-mongodb/statefulset.yaml
+kubectl apply -f k8s/base/space-redis/service.yaml
+kubectl apply -f k8s/base/space-redis/statefulset.yaml
+kubectl apply -f k8s/base/space-server/secret.yaml
+kubectl apply -f k8s/base/space-server/service.yaml
+kubectl apply -f k8s/base/space-server/deployment.yaml
+kubectl apply -f k8s/base/space-client/service.yaml
+kubectl apply -f k8s/base/space-client/deployment.yaml
+kubectl apply -f k8s/base/space-nginx/service.yaml
+kubectl apply -f k8s/base/space-nginx/deployment.yaml
 
 # ======= MONGO DATABASES =======
 
@@ -100,4 +117,4 @@ kubectl apply -f k8s/base/frontend/deployment.yaml
 
 # ======= KUBERNETES INGRESS =======
 
-# kubectl apply -f k8s/ingress/ingress.yaml
+kubectl apply -f k8s/ingress/ingress.yaml
