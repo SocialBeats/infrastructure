@@ -6,5 +6,5 @@ spec:
   selector:
     app: space-client
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 5050
+      targetPort: 5050

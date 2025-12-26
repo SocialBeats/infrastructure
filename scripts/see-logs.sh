@@ -17,10 +17,19 @@ kubectl logs deploy/beats-upload -f
 kubectl logs deploy/social -f
 kubectl logs deploy/user-auth -f
 
-# Misc
+# Frontend
 kubectl logs deploy/frontend -f
+
+# Gateway
 kubectl logs deploy/api-gateway -f
+
+# Kafka
 kubectl logs statefulset/kafka -f
 kubectl logs deploy/zookeeper -f
+
+# Space
+kubectl logs deploy/space-server -f
+kubectl logs deploy/space-client -f
+kubectl logs deploy/space-nginx -f
 
 

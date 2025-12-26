@@ -112,9 +112,12 @@ kubectl apply -f k8s/base/social/deployment.yaml
 
 kubectl apply -f k8s/base/frontend/secret.yaml
 kubectl apply -f k8s/base/frontend/configmap.yaml
+kubectl apply -f k8s/base/frontend/nginx-configmap.yaml
 kubectl apply -f k8s/base/frontend/service.yaml
 kubectl apply -f k8s/base/frontend/deployment.yaml
 
 # ======= KUBERNETES INGRESS =======
 
-kubectl apply -f k8s/ingress/ingress.yaml
+kubectl apply -f k8s/ingress/ingress-api-gateway.yaml
+kubectl apply -f k8s/ingress/ingress-frontend.yaml
+kubectl apply -f k8s/ingress/ingress-space.yaml
