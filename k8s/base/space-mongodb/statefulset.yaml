@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: space-mongodb
+spec:
+  serviceName: space-mongodb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-mongodb
+  template:
+    metadata:
+      labels:
+        app: space-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:7.0.16
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - secretRef:
+                name: space-mongodb-secret
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: space-server
+spec:
+  selector:
+    app: space-server
+  ports:
+    - port: 3000
+      targetPort: 3000

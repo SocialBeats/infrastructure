@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-client
+  template:
+    metadata:
+      labels:
+        app: space-client
+    spec:
+      containers:
+        - name: space-client
+          image: socialbeats/space-client:1.0.1

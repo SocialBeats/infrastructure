@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-server
+  template:
+    metadata:
+      labels:
+        app: space-server
+    spec:
+      containers:
+        - name: space-server
+          image: socialbeats/space-server:1.0.1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: MONGO_URI
+              value: "mongodb://mongoUser:mongoPassword@space-mongodb:27017/space_db"
+            - name: REDIS_URL
+              value: "redis://space-redis:6379"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: space-server-secret
+                  key: JWT_SECRET
+            - name: JWT_SALT
+              valueFrom:
+                secretKeyRef:
+                  name: space-server-secret
+                  key: JWT_SALT

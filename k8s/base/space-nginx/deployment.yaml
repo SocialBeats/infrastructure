@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-nginx
+  template:
+    metadata:
+      labels:
+        app: space-nginx
+    spec:
+      containers:
+        - name: space-nginx
+          image: socialbeats/space-nginx:1.0.0
+          ports:
+            - containerPort: 5403
