@@ -8,9 +8,12 @@ data:
   LOG_LEVEL: "info"
   API_TITLE: "User authentication API"
   API_DESCRIPTION: "This is an OAS description of User Authentication Microservice REST API"
-
   MONGOURL: "mongodb://mongo-user-auth:27017/user-auth"
   MONGOTESTURL: "mongodb://mongo-user-auth:27017/user-auth-test"
-
   REDIS_HOST: "redis-user-auth"
   REDIS_PORT: "6379"
+  ENABLE_KAFKA: "true"
+  KAFKA_BROKER: "kafka:9092"
+  KAFKA_CONNECTION_MAX_RETRIES: "10"
+  KAFKA_CONNECTION_RETRY_DELAY: "3000"
+  KAFKA_COOLDOWN: "30000"
