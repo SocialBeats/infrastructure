@@ -50,3 +50,5 @@ kubectl describe pod frontend-56f54ff8dd-l8zbm
 
 # execute commands
 kubectl exec -it deploy/frontend -- cat /usr/share/nginx/html/config.js
+
+kubectl exec -it <pod-name> -n <namespace> -- /bin/bash

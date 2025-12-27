@@ -28,10 +28,6 @@ kubectl logs statefulset/kafka -f -n socialbeats
 kubectl logs deploy/zookeeper -f -n socialbeats
 
 # Space
-kubectl logs deploy/space-server -n socialbeats
-kubectl logs deploy/space-client -n socialbeats
-kubectl logs deploy/space-nginx -n socialbeats
-
 kubectl logs deploy/client-deployment -n socialbeats
 kubectl logs deploy/server-deployment -n socialbeats
 kubectl logs deploy/mongodb-deployment -n socialbeats

@@ -105,3 +105,8 @@ kubectl delete -f k8s/base/frontend/configmap.yaml
 kubectl delete -f k8s/base/frontend/nginx-configmap.yaml
 kubectl delete -f k8s/base/frontend/service.yaml
 kubectl delete -f k8s/base/frontend/deployment.yaml
+
+# ======= INGRESS =======
+
+kubectl delete -f k8s/ingress/ingress-api-gateway.yaml
+kubectl delete -f k8s/ingress/ingress-frontend.yaml
