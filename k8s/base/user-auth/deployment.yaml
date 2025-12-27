@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-auth
+  namespace: socialbeats
   labels:
     app: user-auth
 spec:

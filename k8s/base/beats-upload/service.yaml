@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: beats-upload
+  namespace: socialbeats
 spec:
   selector:
     app: beats-upload

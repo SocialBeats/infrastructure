@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis-api-gateway
+  namespace: socialbeats
 spec:
   selector:
     app: redis-api-gateway

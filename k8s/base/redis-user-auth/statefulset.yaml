@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: redis-user-auth
+  namespace: socialbeats
   labels:
     app: redis-user-auth
 spec:

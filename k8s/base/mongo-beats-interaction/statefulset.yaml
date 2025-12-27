@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo-beats-interaction
+  namespace: socialbeats
   labels:
     app: mongo-beats-interaction
 spec:

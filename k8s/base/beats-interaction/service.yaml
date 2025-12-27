@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: beats-interaction
+  namespace: socialbeats
 spec:
   selector:
     app: beats-interaction
