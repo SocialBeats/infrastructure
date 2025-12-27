@@ -1,6 +1,6 @@
 # ============================================
 # Archivo: k8s/ingress/ingress-space.yaml
-# Solución para frontend con URL hardcodeada
+# OPCIÓN SIN PREFIJO - Acceso directo en localhost/
 # ============================================
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -24,20 +24,6 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    # Frontend en localhost/
-    - host: localhost
-      http:
-        paths:
-          # Frontend (space-client)
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: space-client
-                port:
-                  number: 5050
-    
-    # API en localhost:5403 (para el frontend hardcodeado)
     - host: localhost
       http:
         paths:
@@ -58,4 +44,12 @@ spec:
                 name: space-server
                 port:
                   number: 3000
-
+          
+          # Todo lo demás - Frontend (space-client)
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: space-client
+                port:
+                  number: 5050

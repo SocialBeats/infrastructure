@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: space-mongodb
+  namespace: socialbeats
 spec:
   serviceName: space-mongodb
   replicas: 1
@@ -18,14 +19,42 @@ spec:
           image: mongo:7.0.16
           ports:
             - containerPort: 27017
-          envFrom:
-            - secretRef:
-                name: space-mongodb-secret
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: space-mongodb-secret
+                  key: MONGO_INITDB_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: space-mongodb-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: space-mongodb-secret
+                  key: DATABASE_NAME
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: space-mongodb-secret
+                  key: DATABASE_USERNAME
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: space-mongodb-secret
+                  key: DATABASE_PASSWORD
           volumeMounts:
             - name: mongo-data
               mountPath: /data/db
             - name: init-script
               mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init-script
+          configMap:
+            name: space-mongo-init-script
+            defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
         name: mongo-data

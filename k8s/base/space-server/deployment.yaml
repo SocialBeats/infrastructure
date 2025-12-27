@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: space-server
+  namespace: socialbeats
 spec:
   replicas: 1
   selector:
@@ -15,6 +16,9 @@ spec:
       containers:
         - name: space-server
           image: socialbeats/space-server:1.0.1
+          volumeMounts:
+            - name: space-statics
+              mountPath: /usr/src/server/public
           ports:
             - containerPort: 3000
           env:
@@ -34,3 +38,7 @@ spec:
                 secretKeyRef:
                   name: space-server-secret
                   key: JWT_SALT
+      volumes:
+        - name: space-statics
+          persistentVolumeClaim:
+            claimName: space-statics

@@ -1,0 +1,14 @@
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: https
+  - name: backend-api
+    port: 5403
+    protocol: TCP
+    targetPort: 5403
