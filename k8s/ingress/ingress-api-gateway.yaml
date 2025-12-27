@@ -1,21 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: api-gateway-ingress
+  name: socialbeats-api-gateway-ingress
   namespace: socialbeats
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: nginx
+  ingressClassName: api-nginx
   rules:
-    - host: localhost
-      http:
-        paths:
-          - path: /socialbeats-api(/|$)(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: api-gateway
-                port:
-                  number: 3000
+  - host: api.localhost
+    http:
+      paths:
+      - path: /socialbeats-api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: api-gateway
+            port:
+              number: 3000

@@ -6,15 +6,15 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: api-nginx
   rules:
-    - host: localhost
-      http:
-        paths:
-          - path: /socialbeats
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
+  - host: app.localhost
+    http:
+      paths:
+      - path: /socialbeats
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80

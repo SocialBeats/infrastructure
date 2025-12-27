@@ -12,20 +12,20 @@ metadata:
 spec:
   ingressClassName: api-nginx
   rules:
-    - host: localhost
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: client-service
-              port: 
-                name: http
-        - path: /api/(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: server-service
-              port: 
-                name: http
+  - host: space.localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: client-service
+            port:
+              name: http
+      - path: /api/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: server-service
+            port: 
+              name: http

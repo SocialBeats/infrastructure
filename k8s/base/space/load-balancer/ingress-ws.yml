@@ -4,7 +4,6 @@ metadata:
   name: space-ws-ingress
   namespace: socialbeats
   annotations:
-    nginx.ingress.kubernetes.io/affinity: "ip_hash"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
@@ -12,13 +11,13 @@ metadata:
 spec:
   ingressClassName: api-nginx
   rules:
-    - host: localhost
-      http:
-        paths:
-        - path: /events
-          pathType: Prefix
-          backend:
-            service:
-              name: server-service
-              port:
-                name: http
+  - host: space.localhost
+    http:
+      paths:
+      - path: /events
+        pathType: Prefix
+        backend:
+          service:
+            name: server-service
+            port:
+              name: http
