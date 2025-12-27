@@ -8,13 +8,13 @@ metadata:
 spec:
   ingressClassName: api-nginx
   rules:
-  - host: app.localhost
-    http:
-      paths:
-      - path: /socialbeats
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend
-            port:
-              number: 80
+    - host: localhost
+      http:
+        paths:
+          - path: /socialbeats
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
