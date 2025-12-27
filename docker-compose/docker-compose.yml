@@ -132,8 +132,16 @@ services:
       - LOG_LEVEL=info
       - API_TITLE="Beats Microservice API"
       - API_DESCRIPTION="This is an OAS description of beats Microservice REST API"
+      - JWT_ACCESS_EXPIRY=15m
+      - JWT_REFRESH_EXPIRY=7
+      - KAFKA_CONNECTION_MAX_RETRIES=10
+      - KAFKA_CONNECTION_RETRY_DELAY=3000
+      - KAFKA_COOLDOWN=30000
+      - KAFKA_BROKER=kafka:9092
+      - ENABLE_KAFKA=true
     depends_on:
       - beats-upload-mongodb
+      - kafka
     networks:
       - socialbeats-network
     ports:
@@ -162,10 +170,10 @@ services:
       - PORT=3003
       - MONGODB_MAX_CONNECTIONS=10
       - MONGODB_MIN_CONNECTIONS=1
-      - CORS_ORIGINS="http://api-gateway:3000,http://analytics-service:3003"
+      - CORS_ORIGINS=["http://api-gateway:3000","http://analytics-service:3003"]
       - CORS_ALLOW_CREDENTIALS=true
-      - CORS_ALLOW_METHODS="*"
-      - CORS_ALLOW_HEADERS="*"
+      - CORS_ALLOW_METHODS=["*"]
+      - CORS_ALLOW_HEADERS=["*"]
       - LOG_FORMAT="json"
       - JWT_SECRET="secret"
       - KAFKA_BROKER=kafka:9092
@@ -200,8 +208,14 @@ services:
       - LOG_LEVEL=info
       - API_TITLE="Social microservice API"
       - API_DESCRIPTION="This is an OAS description of this social microservice REST API"
+      - ENABLE_KAFKA=true
+      - KAFKA_BROKER=kafka:9092
+      - KAFKA_CONNECTION_MAX_RETRIES=10
+      - KAFKA_CONNECTION_RETRY_DELAY=3000
+      - KAFKA_COOLDOWN=30000
     depends_on:
       - social-mongodb
+      - kafka
     networks:
       - socialbeats-network
     ports:

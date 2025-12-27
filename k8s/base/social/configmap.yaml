@@ -10,3 +10,8 @@ data:
   API_TITLE: "Social microservice API"
   API_DESCRIPTION: "This is an OAS description of this social microservice REST API"
   MONGOURL: "mongodb://mongo-social:27017/microservice-social"
+  ENABLE_KAFKA: "true"
+  KAFKA_BROKER: "kafka:9092"
+  KAFKA_CONNECTION_MAX_RETRIES: "10"
+  KAFKA_CONNECTION_RETRY_DELAY: "3000"
+  KAFKA_COOLDOWN: "30000"
