@@ -32,4 +32,8 @@ kubectl logs deploy/space-server -n socialbeats
 kubectl logs deploy/space-client -n socialbeats
 kubectl logs deploy/space-nginx -n socialbeats
 
+kubectl logs deploy/client-deployment
+kubectl logs deploy/server-deployment
+kubectl logs deploy/mongodb-deployment
+kubectl logs deploy/redis-deployment
 

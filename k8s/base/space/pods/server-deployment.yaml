@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: server
+  name: server-deployment
+  namespace: socialbeats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-pod
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: server-pod
+    spec:
+      containers:
+      - name: space-server
+        envFrom:
+          - configMapRef:
+              name: server-config
+        image: socialbeats/space-server:1.0.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+              - curl
+              - -f
+              - http://localhost:3000/api/v1/healthcheck
+          failureThreshold: 5
+          initialDelaySeconds: 30
+          periodSeconds: 90
+          timeoutSeconds: 30
+        volumeMounts:
+          - mountPath: /usr/src/server/public
+            name: space-statics
+      restartPolicy: Always
+      volumes:
+        - name: space-statics
+          persistentVolumeClaim:
+            claimName: space-statics

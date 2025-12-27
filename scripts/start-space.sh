@@ -3,6 +3,7 @@ kubectl apply -f k8s/base/space-mongodb/secret.yaml
 kubectl apply -f k8s/base/space-mongodb/configmap.yaml
 kubectl apply -f k8s/base/space-mongodb/service.yaml
 kubectl apply -f k8s/base/space-mongodb/statefulset.yaml
+kubectl apply -f k8s/base/space-nginx/pvc-space-statics.yaml
 kubectl apply -f k8s/base/space-redis/service.yaml
 kubectl apply -f k8s/base/space-redis/statefulset.yaml
 kubectl apply -f k8s/base/space-server/secret.yaml
@@ -10,7 +11,6 @@ kubectl apply -f k8s/base/space-server/service.yaml
 kubectl apply -f k8s/base/space-server/deployment.yaml
 kubectl apply -f k8s/base/space-client/service.yaml
 kubectl apply -f k8s/base/space-client/deployment.yaml
-# kubectl apply -f k8s/base/space-nginx/configmap.yaml
-kubectl apply -f k8s/base/space-nginx/pvc-space-statics.yaml
-# kubectl apply -f k8s/base/space-nginx/service.yaml
-# kubectl apply -f k8s/base/space-nginx/deployment.yaml
+kubectl apply -f k8s/base/space-nginx/configmap.yaml
+kubectl apply -f k8s/base/space-nginx/service.yaml
+kubectl apply -f k8s/base/space-nginx/deployment.yaml
