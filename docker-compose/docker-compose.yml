@@ -9,7 +9,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
-      - LOG_LEVEL=info
+      - LOG_LEVEL=silly
       - JWT_SECRET=secret
       - ALLOWED_ORIGINS=*
       - REDIS_URL=redis://api-gateway-redis:6379
@@ -47,6 +47,8 @@ services:
   users-service:
     image: socialbeats/user-auth:latest
     container_name: users-service
+    env_file:
+      - ./.env
     environment:
       - MONGOADMIN=
       - MONGOPASS=
@@ -54,7 +56,7 @@ services:
       - MONGOTESTURL=mongodb://user-auth-mongodb:27017/user-auth_test
       - NODE_ENV=development
       - PORT=3001
-      - LOG_LEVEL=info
+      - LOG_LEVEL=silly
       - JWT_SECRET=secret
       - JWT_ACCESS_EXPIRY=15m
       - JWT_REFRESH_EXPIRY=7
@@ -98,7 +100,7 @@ services:
       - NODE_ENV=development
       - JWT_SECRET=secret
       - PORT=3002
-      - LOG_LEVEL=info
+      - LOG_LEVEL=silly
       - API_TITLE="beats-interaction microservice API"
       - API_DESCRIPTION="This is an OAS description of this beats-interaction microservice REST API"
       - KAFKA_CONNECTION_MAX_RETRIES=10
@@ -129,7 +131,7 @@ services:
       - NODE_ENV=development
       - JWT_SECRET=secret
       - PORT=3005
-      - LOG_LEVEL=info
+      - LOG_LEVEL=silly
       - API_TITLE="Beats Microservice API"
       - API_DESCRIPTION="This is an OAS description of beats Microservice REST API"
       - JWT_ACCESS_EXPIRY=15m
@@ -205,7 +207,7 @@ services:
       - NODE_ENV=development
       - JWT_SECRET=secret
       - PORT=3004
-      - LOG_LEVEL=info
+      - LOG_LEVEL=silly
       - API_TITLE="Social microservice API"
       - API_DESCRIPTION="This is an OAS description of this social microservice REST API"
       - ENABLE_KAFKA=true
