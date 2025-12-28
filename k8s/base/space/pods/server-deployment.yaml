@@ -23,6 +23,13 @@ spec:
           - configMapRef:
               name: server-config
         image: socialbeats/space-server:1.0.1
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
