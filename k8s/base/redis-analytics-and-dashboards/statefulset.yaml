@@ -17,6 +17,12 @@ spec:
       containers:
         - name: redis
           image: redis:7-alpine
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"          
           ports:
             - containerPort: 6379
           args: ["--save", "60", "1", "--loglevel", "warning"]

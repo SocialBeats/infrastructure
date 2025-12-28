@@ -19,6 +19,13 @@ spec:
       containers:
       - name: mongodb
         image: mongo:7.0
+        command: ["mongod", "--wiredTigerCacheSizeGB", "0.25"]
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
         ports:
         - containerPort: 27017
         env:
