@@ -52,3 +52,9 @@ kubectl describe pod frontend-56f54ff8dd-l8zbm
 kubectl exec -it deploy/frontend -- cat /usr/share/nginx/html/config.js
 
 kubectl exec -it <pod-name> -n <namespace> -- /bin/bash
+
+# check metrics is online
+kubectl get pods -n kube-system | grep metrics-server
+
+# check hpa status
+kubectl get hpa -n socialbeats 
