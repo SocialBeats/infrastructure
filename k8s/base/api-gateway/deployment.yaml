@@ -26,3 +26,10 @@ spec:
                 name: api-gateway-config
             - secretRef:
                 name: api-gateway-secret
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "256Mi"
+            limits:
+              cpu: "700m"
+              memory: "512Mi"

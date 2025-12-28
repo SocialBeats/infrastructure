@@ -18,6 +18,7 @@ spec:
       containers:
       - name: user-auth
         image: socialbeats/user-auth:latest
+        imagePullPolicy: Always
         ports:
           - containerPort: 3001
         envFrom:
@@ -25,4 +26,10 @@ spec:
               name: user-auth-config
           - secretRef:
               name: user-auth-secret
-        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "256Mi"
+          limits:
+            cpu: "800m"
+            memory: "512Mi"

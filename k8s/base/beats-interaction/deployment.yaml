@@ -18,6 +18,7 @@ spec:
       containers:
         - name: beats-interaction
           image: socialbeats/beats-interaction:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3002
           envFrom:
@@ -25,4 +26,10 @@ spec:
                 name: beats-interaction-config
             - secretRef:
                 name: beats-interaction-secret
-          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "256Mi"
+            limits:
+              cpu: "800m"
+              memory: "512Mi"
