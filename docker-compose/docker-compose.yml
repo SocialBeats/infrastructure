@@ -87,7 +87,6 @@ services:
       - socialbeats-network
     ports:
       - "3001:3001"
-    command: node main.js
 
   beats-interaction-service:
     image: socialbeats/beats-interaction:latest
@@ -115,7 +114,6 @@ services:
       - socialbeats-network
     ports:
       - "3002:3002"
-    command: node main.js
 
   beats-service:
     restart: unless-stopped
@@ -222,6 +220,38 @@ services:
       - socialbeats-network
     ports:
       - "3004:3004"
+
+  payments-and-suscription:
+    image: socialbeats/payments-and-suscription:latest
+    container_name: payments-and-suscription
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      - MONGOADMIN=
+      - MONGOPASS=
+      - MONGOURL=mongodb://payments-and-suscription-mongodb:27017/payments-and-subscriptions
+      - MONGOTESTURL=mongodb://payments-and-suscription-mongodb:27017/payments-and-subscriptions_test
+      - NODE_ENV=development
+      - PORT=3006
+      - LOG_LEVEL=info
+      - JWT_SECRET=secret
+      - API_TITLE="Payments and Subscriptions API"
+      - API_DESCRIPTION="This is the Payments and Subscriptions microservice API for SocialBeats"
+      - SPACE_URL=space-server:3000
+      - FRONTEND_URL=http://localhost:5173
+      - ENABLE_KAFKA=true
+      - KAFKA_BROKER=kafka:9092
+      - KAFKA_CONNECTION_MAX_RETRIES=10
+      - KAFKA_CONNECTION_RETRY_DELAY=5000
+      - KAFKA_COOLDOWN=30000
+    depends_on:
+      - payments-and-suscription-mongodb
+      - kafka
+    networks:
+      - socialbeats-network
+    ports:
+      - "3006:3006"
 
   # ======= SPACE STUFF =======
   space-mongodb:
@@ -473,6 +503,20 @@ services:
     volumes:
       - social-mongo-data:/data/db
 
+  payments-and-suscription-mongodb:
+    image: mongo:7.0
+    container_name: payments-and-suscription-mongodb
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+    volumes:
+      - payments-and-suscription-mongo-data:/data/db
+    networks:
+      - socialbeats-network
+    ports:
+      - "27023:27017"
+
 networks:
   socialbeats-network:
     driver: bridge
@@ -488,6 +532,7 @@ volumes:
   analytics-mongodb-data:
   analytics-mongodb-config:
   social-mongo-data:
+  payments-and-suscription-mongo-data:
   space-mongodb:
   space-statics:
   space-redis-data:

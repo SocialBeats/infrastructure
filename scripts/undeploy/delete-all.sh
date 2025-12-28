@@ -42,6 +42,11 @@ kubectl delete -f k8s/base/mongo-social/secret.yaml
 kubectl delete -f k8s/base/mongo-social/service.yaml
 kubectl delete -f k8s/base/mongo-social/statefulset.yaml
 
+# Payments and subscriptions
+kubectl delete -f k8s/base/mongo-payments-and-subscriptions/secret.yaml
+kubectl delete -f k8s/base/mongo-payments-and-subscriptions/service.yaml
+kubectl delete -f k8s/base/mongo-payments-and-subscriptions/statefulset.yaml
+
 # ======= REDIS DATABASES =======
 
 # API Gateway
@@ -97,6 +102,12 @@ kubectl delete -f k8s/base/social/secret.yaml
 kubectl delete -f k8s/base/social/configmap.yaml
 kubectl delete -f k8s/base/social/service.yaml
 kubectl delete -f k8s/base/social/deployment.yaml
+
+# Payments and subscriptions
+kubectl delete -f k8s/base/payments-and-subscriptions/secret.yaml
+kubectl delete -f k8s/base/payments-and-subscriptions/configmap.yaml
+kubectl delete -f k8s/base/payments-and-subscriptions/service.yaml
+kubectl delete -f k8s/base/payments-and-subscriptions/deployment.yaml
 
 # ======= FRONTEND =======
 

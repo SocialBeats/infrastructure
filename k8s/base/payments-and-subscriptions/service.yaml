@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-and-suscription
+  namespace: socialbeats
+spec:
+  selector:
+    app: payments-and-suscription
+  type: ClusterIP
+  ports:
+    - port: 3006
+      targetPort: 3006

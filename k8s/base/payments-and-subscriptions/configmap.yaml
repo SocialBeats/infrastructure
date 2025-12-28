@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments-and-suscription-config
+  namespace: socialbeats
+data:
+  NODE_ENV: "production"
+  PORT: "3006"
+  LOG_LEVEL: "info"
+  API_TITLE: "Payments and Subscriptions API"
+  API_DESCRIPTION: "This is the Payments and Subscriptions microservice API for SocialBeats"
+  MONGOURL: "mongodb://mongo-payments-and-suscription:27017/payments-and-subscriptions"
+  MONGOTESTURL: "mongodb://mongo-payments-and-suscription:27017/payments-and-subscriptions_test"
+  KAFKA_BROKER: "kafka:9092"
+  ENABLE_KAFKA: "true"
+  KAFKA_CONNECTION_MAX_RETRIES: "10"
+  KAFKA_CONNECTION_RETRY_DELAY: "5000"
+  KAFKA_COOLDOWN: "30000"

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-payments-and-suscription
+  namespace: socialbeats
+  labels:
+    app: mongo-mongo-payments-and-suscription
+spec:
+  serviceName: mongo-payments-and-suscription
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-payments-and-suscription
+  template:
+    metadata:
+      labels:
+        app: mongo-payments-and-suscription
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:7.0
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-payments-and-suscription-secret
+                  key: MONGOADMIN
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-payments-and-suscription-secret
+                  key: MONGOPASS
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

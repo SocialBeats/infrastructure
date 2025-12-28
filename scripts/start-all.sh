@@ -39,6 +39,11 @@ kubectl apply -f k8s/base/mongo-analytics-and-dashboards/secret.yaml
 kubectl apply -f k8s/base/mongo-analytics-and-dashboards/service.yaml
 kubectl apply -f k8s/base/mongo-analytics-and-dashboards/statefulset.yaml
 
+# Payments and subscriptions
+kubectl apply -f k8s/base/mongo-payments-and-subscriptions/secret.yaml
+kubectl apply -f k8s/base/mongo-payments-and-subscriptions/service.yaml
+kubectl apply -f k8s/base/mongo-payments-and-subscriptions/statefulset.yaml
+
 # Social
 kubectl apply -f k8s/base/mongo-social/secret.yaml
 kubectl apply -f k8s/base/mongo-social/service.yaml
@@ -99,6 +104,12 @@ kubectl apply -f k8s/base/social/secret.yaml
 kubectl apply -f k8s/base/social/configmap.yaml
 kubectl apply -f k8s/base/social/service.yaml
 kubectl apply -f k8s/base/social/deployment.yaml
+
+# Payments and subscriptions
+kubectl apply -f k8s/base/payments-and-subscriptions/secret.yaml
+kubectl apply -f k8s/base/payments-and-subscriptions/configmap.yaml
+kubectl apply -f k8s/base/payments-and-subscriptions/service.yaml
+kubectl apply -f k8s/base/payments-and-subscriptions/deployment.yaml
 
 # ======= FRONTEND =======
 
