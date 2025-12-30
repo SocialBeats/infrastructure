@@ -18,7 +18,7 @@ services:
       - ANALYTICS_SERVICE_URL=http://analytics-service:3003
       - SOCIAL_SERVICE_URL=http://social-service:3004
       - BEATS_SERVICE_URL=http://beats-service:3005
-      - PAYMENTS_SERVICE_URL=http://payments-service:3006
+      - PAYMENTS_SERVICE_URL=http://payments-and-suscription:3006
       - NOTIFICATIONS_SERVICE_URL=http://notifications-service:3007
       - SPACE_SERVICE_URL=http://space-nginx:5403
       - FREE_PLAN_MAX_REQUESTS_PER_MINUTE=1000
@@ -69,12 +69,6 @@ services:
       - DEFAULT_ADMIN_USERNAME=admin
       - DEFAULT_ADMIN_EMAIL=admin@example.com
       - DEFAULT_ADMIN_PASSWORD=admin1234
-      - DO_SPACES_KEY=your_do_spaces_key
-      - DO_SPACES_SECRET=your_do_spaces_secret
-      - DO_SPACES_BUCKET=user-s3-fis
-      - DO_SPACES_ENDPOINT=https://fra1.digitaloceanspaces.com
-      - DO_SPACES_REGION=fra1
-      - DO_SPACES_CDN_ENDPOINT=https://user-s3-fis.fra1.cdn.digitaloceanspaces.com
       - ENABLE_KAFKA=true
       - KAFKA_BROKER=kafka:9092
       - KAFKA_CONNECTION_MAX_RETRIES=10
@@ -255,7 +249,7 @@ services:
       - KAFKA_CONNECTION_MAX_RETRIES=10
       - KAFKA_CONNECTION_RETRY_DELAY=5000
       - KAFKA_COOLDOWN=30000
-      - SPACE_SERVICE_NAME=news
+      - SPACE_SERVICE_NAME=news # delete this
     depends_on:
       - payments-and-suscription-mongodb
       - kafka
