@@ -25,6 +25,7 @@ services:
       - BASIC_PLAN_MAX_REQUESTS_PER_MINUTE=5000
       - PREMIUM_PLAN_MAX_REQUESTS_PER_MINUTE=20000
       - ENTERPRISE_PLAN_MAX_REQUESTS_PER_MINUTE=100000
+      - SPACE_URL=http://space-nginx:5403
     depends_on:
       api-gateway-redis:
         condition: service_healthy
@@ -247,7 +248,7 @@ services:
       - JWT_SECRET=secret
       - API_TITLE="Payments and Subscriptions API"
       - API_DESCRIPTION="This is the Payments and Subscriptions microservice API for SocialBeats"
-      - SPACE_URL=space-server:3000
+      - SPACE_URL=http://space-nginx:5403
       - FRONTEND_URL=http://localhost:5173
       - ENABLE_KAFKA=true
       - KAFKA_BROKER=kafka:9092
