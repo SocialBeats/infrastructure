@@ -231,7 +231,7 @@ services:
       - "3004:3004"
 
   payments-and-suscription:
-    image: socialbeats/payments-and-suscription:latest
+    image: socialbeats/payments-and-suscriptions:latest
     container_name: payments-and-suscription
     restart: unless-stopped
     env_file:
