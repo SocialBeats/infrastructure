@@ -91,6 +91,8 @@ services:
   beats-interaction-service:
     image: socialbeats/beats-interaction:latest
     container_name: beats-interaction-service
+    env_file:
+      - ./.env
     environment:
       - MONGOADMIN=
       - MONGOPASS=
@@ -107,8 +109,15 @@ services:
       - KAFKA_COOLDOWN=30000
       - KAFKA_BROKER=kafka:9092
       - ENABLE_KAFKA=true
+      - ENABLE_REDIS=false
+      - REDIS_HOST=beats-interaction-redis
+      - REDIS_PORT=6379
+      - REDIS_CONNECTION_MAX_RETRIES=5
+      - REDIS_CONNECTION_RETRY_DELAY=2000
+      - REDIS_COOLDOWN=30000
     depends_on:
       - beats-interaction-mongodb
+      - beats-interaction-redis
       - kafka
     networks:
       - socialbeats-network
@@ -375,6 +384,17 @@ services:
     volumes:
       - user-auth-redis-data:/data
 
+  beats-interaction-redis:
+    restart: unless-stopped
+    image: redis:7-alpine
+    container_name: beats-interaction-redis
+    networks:
+      - socialbeats-network
+    ports:
+      - "6381:6379"
+    volumes:
+      - beats-interaction-redis-data:/data
+
   api-gateway-redis:
     image: redis:7-alpine
     container_name: api-gateway-redis
@@ -527,6 +547,7 @@ volumes:
   api-gateway-redis-data:
   user-auth-redis-data:
   beats-interaction-mongo-data:
+  beats-interaction-redis-data:
   user-auth-mongo-data:
   beats-upload-mongo-data:
   analytics-mongodb-data:
