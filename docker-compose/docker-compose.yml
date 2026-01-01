@@ -112,6 +112,7 @@ services:
       - REDIS_CONNECTION_MAX_RETRIES=5
       - REDIS_CONNECTION_RETRY_DELAY=2000
       - REDIS_COOLDOWN=30000
+      - AUTH_SERVICE_URL=http://users-service:3001/api/v1/auth/internal/user/
     depends_on:
       - beats-interaction-mongodb
       - beats-interaction-redis
