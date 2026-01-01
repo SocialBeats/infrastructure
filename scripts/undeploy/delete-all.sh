@@ -64,6 +64,10 @@ kubectl delete -f k8s/base/redis-analytics-and-dashboards/secret.yaml
 kubectl delete -f k8s/base/redis-analytics-and-dashboards/service.yaml
 kubectl delete -f k8s/base/redis-analytics-and-dashboards/statefulset.yaml
 
+# Beats interaction
+kubectl delete -f k8s/base/redis-beats-interaction/secret.yaml
+kubectl delete -f k8s/base/redis-beats-interaction/service.yaml
+kubectl delete -f k8s/base/redis-beats-interaction/statefulset.yaml
 
 # ======= MICROSERVICES =======
 
