@@ -256,7 +256,8 @@ services:
       - KAFKA_CONNECTION_MAX_RETRIES=10
       - KAFKA_CONNECTION_RETRY_DELAY=5000
       - KAFKA_COOLDOWN=30000
-      - SPACE_SERVICE_NAME=news # delete this
+      - SPACE_SERVICE_NAME=socialbeats
+      - SPACE_SERVICE_VERSION=1.1
     depends_on:
       - payments-and-suscription-mongodb
       - kafka
