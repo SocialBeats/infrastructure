@@ -5,4 +5,4 @@ metadata:
   namespace: socialbeats
 data:
   VITE_ENVIRONMENT: production
-  VITE_SPACE_BASE_URL: http://localhost/api/v1
+  VITE_SPACE_BASE_URL: /api/v1

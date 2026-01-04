@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: payments-and-suscription
-          image: socialbeats/payments-and-suscription:latest
+          image: socialbeats/payments-and-suscriptions:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3006

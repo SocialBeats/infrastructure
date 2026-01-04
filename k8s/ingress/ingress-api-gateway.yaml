@@ -4,12 +4,34 @@ metadata:
   name: api-gateway-ingress
   namespace: socialbeats
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
+    # ========== SSL/TLS ==========
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+    # ========== CORS Configuration ==========
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://www.socialbeats.es, https://socialbeats.es"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,Accept,Origin"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-max-age: "86400"
+
+    # ========== Rewrite Configuration ==========
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+    # ========== Proxy Configuration ==========
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
 spec:
-  ingressClassName: api-nginx
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.socialbeats.es
+      secretName: api-gateway-tls-secret
   rules:
-    - host: localhost
+    - host: api.socialbeats.es
       http:
         paths:
           - path: /socialbeats-api(/|$)(.*)

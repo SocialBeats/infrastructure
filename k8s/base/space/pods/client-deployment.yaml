@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: space-client
-          image: socialbeats/space-client:1.0.1
+          image: socialbeats/space-client:1.0.4
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
