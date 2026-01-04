@@ -57,6 +57,10 @@ kubectl apply -f k8s/base/redis-analytics-and-dashboards/secret.yaml
 kubectl apply -f k8s/base/redis-analytics-and-dashboards/service.yaml
 kubectl apply -f k8s/base/redis-analytics-and-dashboards/statefulset.yaml
 
+# Beats interaction
+kubectl apply -f k8s/base/redis-beats-interaction/secret.yaml
+kubectl apply -f k8s/base/redis-beats-interaction/service.yaml
+kubectl apply -f k8s/base/redis-beats-interaction/statefulset.yaml
 
 # ======= MICROSERVICES =======
 
