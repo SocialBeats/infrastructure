@@ -14,4 +14,3 @@ data:
   BEATS_SERVICE_URL: "http://beats-upload:3005"
   PAYMENTS_SERVICE_URL: "http://beats-interaction:3006"
   NOTIFICATIONS_SERVICE_URL: "http://notifications:3007"
-  SPACE_SERVICE_URL: "http://space-nginx:5403"
